@@ -1,640 +1,579 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ama & Thisura | Wedding</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
-    <!-- Preload images -->
-    <link rel="preload" as="image" href="IMG-20250928-WA0004.jpg">
-    <link rel="preload" as="image" href="IMG-20250928-WA0002.jpg">
-    <link rel="preload" as="image" href="IMG-20250928-WA0003.jpg">
-    <style>
-        :root {
-            --black: #1a1a1a;
-            --white: #ffffff;
-            --cream: #f9f6f0;
-            --gold: #d4af37;
-            --spacing: clamp(80px, 10vw, 120px);
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ama & Thisura | Wedding</title>
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
 
-        body {
-            background-color: var(--white);
-            color: var(--black);
-            font-family: 'Montserrat', sans-serif;
-            line-height: 1.8;
-            overflow-x: hidden;
-        }
+  <!-- Preload key images -->
+  <link rel="preload" as="image" href="IMG-20250928-WA0004.jpg" />
+  <link rel="preload" as="image" href="IMG-20250928-WA0002.jpg" />
+  <link rel="preload" as="image" href="IMG-20250928-WA0003.jpg" />
 
-        h1, h2, h3 {
-            font-family: 'Cormorant Garamond', serif;
-            font-weight: 400;
-            letter-spacing: 1px;
-        }
-    </style>
+  <style>
+    /* ================================
+       Global Variables
+    ================================= */
+    :root {
+      --black: #1a1a1a;
+      --white: #ffffff;
+      --cream: #f9f6f0;
+      --gold: #d4af37;
+      --spacing: clamp(80px, 10vw, 120px);
+    }
 
-    <!-- Hero and Carousel Styles -->
-    <style>
-        .hero {
-            height: 100vh;
-            position: relative;
-            overflow: hidden;
-        }
+    /* ================================
+       Reset & Base
+    ================================= */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        .carousel {
-            height: 100%;
-            width: 100%;
-            position: relative;
-        }
+    body {
+      background-color: var(--white);
+      color: var(--black);
+      font-family: 'Montserrat', sans-serif;
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
 
-        .carousel-slide {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            transition: opacity 1s ease-in-out;
-            background-position: center;
-            background-size: cover;
-            background-repeat: no-repeat;
-        }
+    h1, h2, h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      letter-spacing: 1px;
+    }
 
-        .carousel-slide.active {
-            opacity: 1;
-        }
+    img {
+      max-width: 100%;
+      display: block;
+    }
 
-        .carousel-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.3);
-            z-index: 1;
-        }
+    section {
+      padding: var(--spacing) 20px;
+      position: relative;
+    }
 
-        .hero-content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 2;
-            width: 90%;
-            max-width: 800px;
-            padding: 2rem;
-            text-align: center;
-            color: var(--white);
-            border-radius: 2px;
-        }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
 
-        .hero-title {
-            font-size: clamp(3rem, 8vw, 6rem);
-            line-height: 1.2;
-            margin-bottom: 1rem;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 1.5s ease forwards 0.5s;
-        }
+    /* ================================
+       Section Titles
+    ================================= */
+    .section-title {
+      text-align: center;
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      margin-bottom: 3rem;
+      position: relative;
+    }
 
-        .hero-date {
-            font-size: clamp(1rem, 2vw, 1.5rem);
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 1.5s ease forwards 1s;
-        }
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 2px;
+      background: var(--gold);
+      margin: 20px auto 0;
+    }
 
-        /* Navigation Controls */
-        .carousel-nav {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 12px;
-            z-index: 2;
-        }
+    /* ================================
+       Hero / Carousel
+    ================================= */
+    .hero {
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+    }
 
-        .carousel-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.5);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
+    .carousel {
+      height: 100%;
+      width: 100%;
+      position: relative;
+    }
 
-        .carousel-dot.active {
-            background: var(--white);
-            transform: scale(1.2);
-        }
+    .carousel-slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
 
-        .carousel-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 2;
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(5px);
-        }
+    .carousel-slide.active {
+      opacity: 1;
+    }
 
-        .carousel-arrow:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
+    .carousel-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      z-index: 1;
+    }
 
-        .carousel-arrow.prev {
-            left: 20px;
-        }
+    .hero-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+      width: 90%;
+      max-width: 800px;
+      padding: 2rem;
+      text-align: center;
+      color: var(--white);
+    }
 
-        .carousel-arrow.next {
-            right: 20px;
-        }
+    .hero-title {
+      font-size: clamp(3rem, 8vw, 6rem);
+      margin-bottom: 1rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1.5s ease forwards 0.5s;
+    }
 
-        .carousel-arrow::before {
-            content: '';
-            display: block;
-            width: 10px;
-            height: 10px;
-            border-top: 2px solid white;
-            border-right: 2px solid white;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-        }
+    .hero-date {
+      font-size: clamp(1rem, 2vw, 1.5rem);
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1.5s ease forwards 1s;
+    }
 
-        .carousel-arrow.prev::before {
-            transform: translate(-25%, -50%) rotate(-135deg);
-        }
+    /* Carousel Controls */
+    .carousel-nav {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 12px;
+      z-index: 2;
+    }
 
-        .carousel-arrow.next::before {
-            transform: translate(-75%, -50%) rotate(45deg);
-        }
+    .carousel-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.5);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
 
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+    .carousel-dot.active {
+      background: var(--white);
+      transform: scale(1.2);
+    }
 
-        /* Mobile Responsive Styles */
-        @media (max-width: 768px) {
-            .hero-content {
-                padding: 1.5rem;
-                width: 95%;
-            }
+    .carousel-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 2;
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(5px);
+    }
 
-            .hero-title {
-                font-size: clamp(2.5rem, 6vw, 4rem);
-                margin-bottom: 0.5rem;
-            }
+    .carousel-arrow:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
 
-            .hero-date {
-                font-size: clamp(0.875rem, 1.5vw, 1.2rem);
-                letter-spacing: 2px;
-            }
+    .carousel-arrow.prev { left: 20px; }
+    .carousel-arrow.next { right: 20px; }
 
-            .carousel-overlay {
-                background: rgba(0, 0, 0, 0.4);
-            }
+    .carousel-arrow::before {
+      content: '';
+      display: block;
+      width: 10px;
+      height: 10px;
+      border-top: 2px solid white;
+      border-right: 2px solid white;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+    }
 
-            .carousel-arrow {
-                width: 40px;
-                height: 40px;
-            }
+    .carousel-arrow.prev::before {
+      transform: translate(-25%, -50%) rotate(-135deg);
+    }
 
-            .carousel-arrow.prev {
-                left: 10px;
-            }
+    .carousel-arrow.next::before {
+      transform: translate(-75%, -50%) rotate(45deg);
+    }
 
-            .carousel-arrow.next {
-                right: 10px;
-            }
+    /* ================================
+       Love Story
+    ================================= */
+    .love-story {
+      background-color: var(--cream);
+    }
 
-            .carousel-slide {
-                background-position: center 25%;
-            }
-        }
+    .story-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
 
-        @media (max-width: 480px) {
-            .carousel-arrow {
-                width: 35px;
-                height: 35px;
-            }
+    .story-image {
+      overflow: hidden;
+      border-radius: 2px;
+    }
 
-            .carousel-arrow.prev {
-                left: 5px;
-            }
+    .story-image img {
+      width: 100%;
+      filter: grayscale(100%);
+      transition: transform 0.8s ease;
+    }
 
-            .carousel-arrow.next {
-                right: 5px;
-            }
+    .story-image:hover img {
+      transform: scale(1.05);
+    }
 
-            .carousel-nav {
-                bottom: 20px;
-            }
+    .story-text {
+      font-size: 1.1rem;
+      line-height: 1.8;
+    }
 
-            .carousel-dot {
-                width: 8px;
-                height: 8px;
-            }
-        }
-    </style>
+    /* ================================
+       Ceremony
+    ================================= */
+    .ceremony {
+      background: var(--white);
+      text-align: center;
+    }
+
+    .ceremony-details {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px;
+      border: 1px solid rgba(0,0,0,0.1);
+      border-radius: 2px;
+    }
+
+    /* ================================
+       Schedule Timeline
+    ================================= */
+    .timeline {
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1px;
+      height: 100%;
+      background: rgba(0,0,0,0.1);
+    }
+
+    .timeline-item {
+      margin: 60px 0;
+      position: relative;
+      width: 50%;
+      padding: 0 40px;
+    }
+
+    .timeline-item:nth-child(odd) { left: 0; }
+    .timeline-item:nth-child(even) { left: 50%; }
+
+    .timeline-content {
+      background: var(--white);
+      padding: 30px;
+      border-radius: 2px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    }
+
+    /* ================================
+       RSVP
+    ================================= */
+    .rsvp {
+      background: var(--cream);
+      text-align: center;
+    }
+
+    .rsvp-button {
+      display: inline-block;
+      padding: 18px 45px;
+      background: var(--black);
+      color: var(--white);
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 0.9rem;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+      margin-top: 40px;
+    }
+
+    .rsvp-button:hover {
+      background: var(--gold);
+      transform: translateY(-2px);
+    }
+
+    /* ================================
+       Animations
+    ================================= */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ================================
+       Responsive
+    ================================= */
+    @media (max-width: 768px) {
+      .hero-content { width: 95%; padding: 1.5rem; }
+      .hero-title { font-size: clamp(2.5rem, 6vw, 4rem); }
+      .hero-date { letter-spacing: 2px; }
+
+      .carousel-overlay { background: rgba(0, 0, 0, 0.4); }
+      .carousel-arrow { width: 40px; height: 40px; }
+      .carousel-arrow.prev { left: 10px; }
+      .carousel-arrow.next { right: 10px; }
+      .carousel-slide { background-position: center 25%; }
+
+      .story-grid { grid-template-columns: 1fr; gap: 40px; }
+
+      .timeline::before { left: 20px; }
+      .timeline-item { width: 100%; padding-left: 60px; }
+      .timeline-item:nth-child(even) { left: 0; }
+    }
+
+    @media (max-width: 480px) {
+      .carousel-arrow { width: 35px; height: 35px; }
+      .carousel-arrow.prev { left: 5px; }
+      .carousel-arrow.next { right: 5px; }
+      .carousel-nav { bottom: 20px; }
+      .carousel-dot { width: 8px; height: 8px; }
+    }
+  </style>
 </head>
 <body>
-    <section class="hero">
-        <div class="carousel">
-            <div class="carousel-slide active" style="background-image: url('IMG-20250928-WA0004.jpg')" loading="lazy"></div>
-            <div class="carousel-slide" style="background-image: url('IMG-20250928-WA0002.jpg')" loading="lazy"></div>
-            <div class="carousel-slide" style="background-image: url('IMG-20250928-WA0003.jpg')" loading="lazy"></div>
-            <div class="carousel-overlay"></div>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="carousel">
+      <div class="carousel-slide active" style="background-image: url('IMG-20250928-WA0004.jpg')"></div>
+      <div class="carousel-slide" style="background-image: url('IMG-20250928-WA0002.jpg')"></div>
+      <div class="carousel-slide" style="background-image: url('IMG-20250928-WA0003.jpg')"></div>
+      <div class="carousel-overlay"></div>
+    </div>
+
+    <div class="hero-content">
+      <h1 class="hero-title">Ama & Thisura</h1>
+      <p class="hero-date">September 15, 2025</p>
+    </div>
+
+    <button class="carousel-arrow prev" aria-label="Previous slide"></button>
+    <button class="carousel-arrow next" aria-label="Next slide"></button>
+    <div class="carousel-nav"></div>
+  </section>
+
+  <!-- Love Story Section -->
+  <section class="love-story">
+    <div class="container">
+      <h2 class="section-title">Our Story</h2>
+      <div class="story-grid">
+        <div class="story-image fade-in">
+          <img src="IMG-20250928-WA0003.jpg" alt="Ama and Thisura smiling together" loading="lazy" />
         </div>
-        
-        <div class="hero-content">
-            <h1 class="hero-title">Ama & Thisura</h1>
-            <p class="hero-date">September 15, 2025</p>
+        <div class="story-text fade-in">
+          <p>Two souls met under the starlit sky of Colombo, where destiny had written their story long before they knew. Through shared laughter, countless cups of tea, and adventures across continents, their love blossomed into something extraordinary.</p>
         </div>
+      </div>
+    </div>
+  </section>
 
-        <button class="carousel-arrow prev" aria-label="Previous slide"></button>
-        <button class="carousel-arrow next" aria-label="Next slide"></button>
+  <!-- Ceremony Section -->
+  <section class="ceremony">
+    <div class="container">
+      <h2 class="section-title">The Ceremony</h2>
+      <div class="ceremony-details fade-in">
+        <h3>Join Us In Celebration</h3>
+        <p>September 15, 2025 at 4:00 PM</p>
+        <p>The Grand Ballroom</p>
+        <p>123 Galle Road, Colombo</p>
+      </div>
+    </div>
+  </section>
 
-        <div class="carousel-nav"></div>
-    </section>
-
-    <!-- Love Story Section -->
-    <section class="love-story">
-        <div class="container">
-            <h2 class="section-title">Our Story</h2>
-            <div class="story-grid">
-                <div class="story-image fade-in">
-                    <img src="IMG-20250928-WA0003.jpg" alt="Ama and Thisura">
-                </div>
-                <div class="story-text fade-in">
-                    <p>Two souls met under the starlit sky of Colombo, where destiny had written their story long before they knew. Through shared laughter, countless cups of tea, and adventures across continents, their love blossomed into something extraordinary.</p>
-                </div>
-            </div>
+  <!-- Schedule Section -->
+  <section class="schedule">
+    <div class="container">
+      <h2 class="section-title">Wedding Day</h2>
+      <div class="timeline">
+        <div class="timeline-item fade-in">
+          <div class="timeline-content">
+            <h3>4:00 PM</h3>
+            <p>Ceremony</p>
+          </div>
         </div>
-    </section>
-
-    <!-- Ceremony Section -->
-    <section class="ceremony">
-        <div class="container">
-            <h2 class="section-title">The Ceremony</h2>
-            <div class="ceremony-details fade-in">
-                <h3>Join Us In Celebration</h3>
-                <p>September 15, 2025 at 4:00 PM</p>
-                <p>The Grand Ballroom</p>
-                <p>123 Galle Road, Colombo</p>
-            </div>
+        <div class="timeline-item fade-in">
+          <div class="timeline-content">
+            <h3>5:30 PM</h3>
+            <p>Cocktail Hour</p>
+          </div>
         </div>
-    </section>
-
-    <!-- Schedule Section -->
-    <section class="schedule">
-        <div class="container">
-            <h2 class="section-title">Wedding Day</h2>
-            <div class="timeline">
-                <div class="timeline-item fade-in">
-                    <div class="timeline-content">
-                        <h3>4:00 PM</h3>
-                        <p>Ceremony</p>
-                    </div>
-                </div>
-                <div class="timeline-item fade-in">
-                    <div class="timeline-content">
-                        <h3>5:30 PM</h3>
-                        <p>Cocktail Hour</p>
-                    </div>
-                </div>
-                <div class="timeline-item fade-in">
-                    <div class="timeline-content">
-                        <h3>6:30 PM</h3>
-                        <p>Reception & Dinner</p>
-                    </div>
-                </div>
-            </div>
+        <div class="timeline-item fade-in">
+          <div class="timeline-content">
+            <h3>6:30 PM</h3>
+            <p>Reception & Dinner</p>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- RSVP Section -->
-    <section class="rsvp">
-        <div class="container">
-            <h2 class="section-title">Join Our Celebration</h2>
-            <p>We would be honored to have you share in our special day</p>
-            <a href="#" class="rsvp-button">RSVP</a>
-        </div>
-    </section>
+  <!-- RSVP Section -->
+  <section class="rsvp">
+    <div class="container">
+      <h2 class="section-title">Join Our Celebration</h2>
+      <p>We would be honored to have you share in our special day</p>
+      <a href="#" class="rsvp-button">RSVP</a>
+    </div>
+  </section>
 
-    <!-- Add the missing styles for other sections -->
-    <style>
-        /* Section Styles */
-        section {
-            padding: var(--spacing) 20px;
-            position: relative;
+  <script>
+    // ================================
+    // Fade-in animations with Intersection Observer
+    // ================================
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
         }
+      });
+    }, { threshold: 0.1 });
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
+    document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
+
+    // ================================
+    // Carousel Logic
+    // ================================
+    class Carousel {
+      constructor() {
+        this.slides = document.querySelectorAll('.carousel-slide');
+        this.totalSlides = this.slides.length;
+        this.currentSlide = 0;
+        this.autoPlayInterval = null;
+        this.touchStartX = 0;
+        this.touchEndX = 0;
+
+        this.initializeNav();
+        this.initializeControls();
+        this.initializeTouchEvents();
+        this.startAutoPlay();
+      }
+
+      initializeNav() {
+        const nav = document.querySelector('.carousel-nav');
+        for (let i = 0; i < this.totalSlides; i++) {
+          const dot = document.createElement('div');
+          dot.classList.add('carousel-dot');
+          if (i === 0) dot.classList.add('active');
+          dot.addEventListener('click', () => this.goToSlide(i));
+          nav.appendChild(dot);
         }
+        this.dots = nav.querySelectorAll('.carousel-dot');
+      }
 
-        .section-title {
-            text-align: center;
-            font-size: clamp(2rem, 4vw, 3.5rem);
-            margin-bottom: 3rem;
-            position: relative;
+      initializeControls() {
+        document.querySelector('.carousel-arrow.prev')
+          .addEventListener('click', () => this.prevSlide());
+        document.querySelector('.carousel-arrow.next')
+          .addEventListener('click', () => this.nextSlide());
+      }
+
+      initializeTouchEvents() {
+        const carousel = document.querySelector('.carousel');
+        carousel.addEventListener('touchstart', (e) => {
+          this.touchStartX = e.touches[0].clientX;
+        }, false);
+
+        carousel.addEventListener('touchend', (e) => {
+          this.touchEndX = e.changedTouches[0].clientX;
+          this.handleSwipe();
+        }, false);
+      }
+
+      handleSwipe() {
+        const swipeThreshold = 50;
+        const difference = this.touchStartX - this.touchEndX;
+        if (Math.abs(difference) > swipeThreshold) {
+          difference > 0 ? this.nextSlide() : this.prevSlide();
         }
+      }
 
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 60px;
-            height: 2px;
-            background: var(--gold);
-            margin: 20px auto;
-        }
+      updateSlides() {
+        this.slides.forEach(slide => slide.classList.remove('active'));
+        this.dots.forEach(dot => dot.classList.remove('active'));
+        this.slides[this.currentSlide].classList.add('active');
+        this.dots[this.currentSlide].classList.add('active');
+      }
 
-        /* Love Story Section */
-        .love-story {
-            background-color: var(--cream);
-        }
+      nextSlide() {
+        this.currentSlide = (this.currentSlide + 1) % this.totalSlides;
+        this.updateSlides();
+        this.resetAutoPlay();
+      }
 
-        .story-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-        }
+      prevSlide() {
+        this.currentSlide = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
+        this.updateSlides();
+        this.resetAutoPlay();
+      }
 
-        .story-image {
-            position: relative;
-            overflow: hidden;
-            border-radius: 2px;
-        }
+      goToSlide(index) {
+        this.currentSlide = index;
+        this.updateSlides();
+        this.resetAutoPlay();
+      }
 
-        .story-image img {
-            width: 100%;
-            height: auto;
-            filter: grayscale(100%);
-            transition: transform 0.8s ease;
-        }
+      startAutoPlay() {
+        this.autoPlayInterval = setInterval(() => this.nextSlide(), 5000);
+      }
 
-        .story-image:hover img {
-            transform: scale(1.05);
-        }
+      resetAutoPlay() {
+        clearInterval(this.autoPlayInterval);
+        this.startAutoPlay();
+      }
+    }
 
-        .story-text {
-            font-size: 1.1rem;
-            line-height: 1.8;
-        }
-
-        /* Ceremony Section */
-        .ceremony {
-            background: var(--white);
-            text-align: center;
-        }
-
-        .ceremony-details {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 40px;
-            border: 1px solid rgba(0,0,0,0.1);
-            border-radius: 2px;
-        }
-
-        /* Timeline Section */
-        .timeline {
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 1px;
-            height: 100%;
-            background: rgba(0,0,0,0.1);
-        }
-
-        .timeline-item {
-            margin: 60px 0;
-            position: relative;
-            width: 50%;
-            padding: 0 40px;
-        }
-
-        .timeline-item:nth-child(odd) {
-            left: 0;
-        }
-
-        .timeline-item:nth-child(even) {
-            left: 50%;
-        }
-
-        .timeline-content {
-            background: var(--white);
-            padding: 30px;
-            border-radius: 2px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-        }
-
-        /* RSVP Section */
-        .rsvp {
-            background: var(--cream);
-            text-align: center;
-        }
-
-        .rsvp-button {
-            display: inline-block;
-            padding: 18px 45px;
-            background: var(--black);
-            color: var(--white);
-            text-decoration: none;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 0.9rem;
-            border: none;
-            border-radius: 2px;
-            transition: all 0.3s ease;
-            margin-top: 40px;
-        }
-
-        .rsvp-button:hover {
-            background: var(--gold);
-            transform: translateY(-2px);
-        }
-
-        /* Animations */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .story-grid {
-                grid-template-columns: 1fr;
-                gap: 40px;
-            }
-
-            .timeline::before {
-                left: 20px;
-            }
-
-            .timeline-item {
-                width: 100%;
-                padding-left: 60px;
-            }
-
-            .timeline-item:nth-child(even) {
-                left: 0;
-            }
-        }
-    </style>
-
-    <!-- Scripts -->
-    <script>
-        // Intersection Observer for fade-in animations
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, {
-            threshold: 0.1
-        });
-
-        document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
-
-        class Carousel {
-            constructor() {
-                this.slides = document.querySelectorAll('.carousel-slide');
-                this.totalSlides = this.slides.length;
-                this.currentSlide = 0;
-                this.autoPlayInterval = null;
-                this.touchStartX = 0;
-                this.touchEndX = 0;
-                
-                this.initializeNav();
-                this.initializeControls();
-                this.initializeTouchEvents();
-                this.startAutoPlay();
-            }
-
-            initializeNav() {
-                const nav = document.querySelector('.carousel-nav');
-                for (let i = 0; i < this.totalSlides; i++) {
-                    const dot = document.createElement('div');
-                    dot.classList.add('carousel-dot');
-                    if (i === 0) dot.classList.add('active');
-                    dot.addEventListener('click', () => this.goToSlide(i));
-                    nav.appendChild(dot);
-                }
-                this.dots = nav.querySelectorAll('.carousel-dot');
-            }
-
-            initializeControls() {
-                document.querySelector('.carousel-arrow.prev')
-                    .addEventListener('click', () => this.prevSlide());
-                document.querySelector('.carousel-arrow.next')
-                    .addEventListener('click', () => this.nextSlide());
-            }
-
-            initializeTouchEvents() {
-                const carousel = document.querySelector('.carousel');
-                
-                carousel.addEventListener('touchstart', (e) => {
-                    this.touchStartX = e.touches[0].clientX;
-                }, false);
-
-                carousel.addEventListener('touchend', (e) => {
-                    this.touchEndX = e.changedTouches[0].clientX;
-                    this.handleSwipe();
-                }, false);
-            }
-
-            handleSwipe() {
-                const swipeThreshold = 50;
-                const difference = this.touchStartX - this.touchEndX;
-
-                if (Math.abs(difference) > swipeThreshold) {
-                    if (difference > 0) {
-                        this.nextSlide();
-                    } else {
-                        this.prevSlide();
-                    }
-                }
-            }
-
-            updateSlides() {
-                this.slides.forEach(slide => slide.classList.remove('active'));
-                this.dots.forEach(dot => dot.classList.remove('active'));
-                
-                this.slides[this.currentSlide].classList.add('active');
-                this.dots[this.currentSlide].classList.add('active');
-            }
-
-            nextSlide() {
-                this.currentSlide = (this.currentSlide + 1) % this.totalSlides;
-                this.updateSlides();
-                this.resetAutoPlay();
-            }
-
-            prevSlide() {
-                this.currentSlide = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
-                this.updateSlides();
-                this.resetAutoPlay();
-            }
-
-            goToSlide(index) {
-                this.currentSlide = index;
-                this.updateSlides();
-                this.resetAutoPlay();
-            }
-
-            startAutoPlay() {
-                this.autoPlayInterval = setInterval(() => this.nextSlide(), 5000);
-            }
-
-            resetAutoPlay() {
-                clearInterval(this.autoPlayInterval);
-                this.startAutoPlay();
-            }
-        }
-
-        // Initialize carousel when DOM is loaded
-        document.addEventListener('DOMContentLoaded', () => {
-            new Carousel();
-        });
-    </script>
+    document.addEventListener('DOMContentLoaded', () => new Carousel());
+  </script>
 </body>
 </html>
