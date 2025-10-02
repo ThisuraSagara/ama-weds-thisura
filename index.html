@@ -271,41 +271,66 @@
       border-radius: 2px;
     }
 
-    /* ================================
-       Schedule Timeline
-    ================================= */
-    .timeline {
-      max-width: 800px;
-      margin: 0 auto;
-      position: relative;
-    }
+    .ceremony-details p + p {
+  margin-top: 0.5rem;
+}
 
-    .timeline::before {
-      content: '';
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 1px;
-      height: 100%;
-      background: rgba(0,0,0,0.1);
-    }
+/* ================================
+   Schedule Timeline
+   ================================= */
+.timeline {
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+}
 
-    .timeline-item {
-      margin: 60px 0;
-      position: relative;
-      width: 50%;
-      padding: 0 40px;
-    }
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 100%;
+  background: rgba(0,0,0,0.1);
+}
 
-    .timeline-item:nth-child(odd) { left: 0; }
-    .timeline-item:nth-child(even) { left: 50%; }
+.timeline-item {
+  margin: 60px 0;
+  position: relative;
+  width: 50%;
+  padding: 0 40px;
+}
 
-    .timeline-content {
-      background: var(--white);
-      padding: 30px;
-      border-radius: 2px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-    }
+.timeline-item:nth-child(odd) { left: 0; }
+.timeline-item:nth-child(even) { left: 50%; }
+
+.timeline-content {
+  background: var(--white);
+  padding: 30px;
+  border-radius: 2px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  text-align: center;
+}
+
+.timeline-content h3 {
+  margin: 0 0 10px 0;
+  font-size: 1.8rem;
+  color: var(--primary);
+}
+
+.timeline-content p {
+  margin: 5px 0;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.timeline-content p em {
+  font-style: italic;
+  font-size: 0.95rem;
+  color: #555;
+  display: block;
+  margin-top: 8px;
+}
 
     /* ================================
        RSVP
@@ -425,40 +450,69 @@
     <div class="container">
       <h2 class="section-title">The Ceremony</h2>
       <div class="ceremony-details fade-in">
-        <h3>Join Us In Celebration</h3>
-        <p>September 15, 2025 at 4:00 PM</p>
-        <p>The Grand Ballroom</p>
-        <p>123 Galle Road, Colombo</p>
+      <h3>Join Us In Celebration</h3>
+      <p><strong>January 30, 2026</strong></p>
+      <p>4:50 P.M – Poruwa Ceremony</p>
+      <p>7:15 P.M – Reception</p>
+      <p>The Pearl Ballroom</p>
+      <p>700 Matara Road, Pelana, Weligama</p>
+      <p>Weligama Bay Marriott Resort & Spa</p>
       </div>
     </div>
   </section>
 
   <!-- Schedule Section -->
-  <section class="schedule">
-    <div class="container">
-      <h2 class="section-title">Wedding Day</h2>
-      <div class="timeline">
-        <div class="timeline-item fade-in">
-          <div class="timeline-content">
-            <h3>4:00 PM</h3>
-            <p>Ceremony</p>
-          </div>
+<section class="schedule">
+  <div class="container">
+    <h2 class="section-title">Wedding Day</h2>
+    <div class="timeline">
+      <!-- Poruwa Ceremony -->
+      <div class="timeline-item fade-in">
+        <div class="timeline-content">
+          <h3>4:50 P.M</h3>
+          <p>Poruwa Ceremony</p>
+          <p><em>Rooftop, Weligama Bay Marriott</em></p>
         </div>
-        <div class="timeline-item fade-in">
-          <div class="timeline-content">
-            <h3>5:30 PM</h3>
-            <p>Cocktail Hour</p>
-          </div>
+      </div>
+
+      <!-- Musical Tea Session -->
+      <div class="timeline-item fade-in">
+        <div class="timeline-content">
+          <h3>6:00 P.M</h3>
+          <p>Musical Tea Session</p>
+          <p><em>Rooftop, Weligama Bay Marriott</em></p>
         </div>
-        <div class="timeline-item fade-in">
-          <div class="timeline-content">
-            <h3>6:30 PM</h3>
-            <p>Reception & Dinner</p>
-          </div>
+      </div>
+
+      <!-- Reception Begins -->
+      <div class="timeline-item fade-in">
+        <div class="timeline-content">
+          <h3>7:15 P.M</h3>
+          <p>Reception</p>
+          <p><em>The Pearl Ballroom</em></p>
+        </div>
+      </div>
+
+      <!-- Cocktail & Bar Open -->
+      <div class="timeline-item fade-in">
+        <div class="timeline-content">
+          <h3>8:20 P.M</h3>
+          <p>Cocktail & Bar Open</p>
+          <p><em>The Pearl Ballroom</em></p>
+        </div>
+      </div>
+
+      <!-- Dinner Starts -->
+      <div class="timeline-item fade-in">
+        <div class="timeline-content">
+          <h3>8:40 P.M</h3>
+          <p>Dinner Service</p>
+          <p><em>The Pearl Ballroom</em></p>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
   <!-- RSVP Section -->
   <section class="rsvp">
