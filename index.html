@@ -3,637 +3,334 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ama & Thisura | Wedding</title>
+  <title>Ama & Thisura | Wedding Day</title>
 
   <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
-
-  <!-- Preload key images -->
-  <link rel="preload" as="image" href="Image1.jpg" />
-  <link rel="preload" as="image" href="Image2.jpg" />
-  <link rel="preload" as="image" href="Image3.jpg" />
-  <link rel="preload" as="image" href="Image4.jpg" />
-  <link rel="preload" as="image" href="Image5.jpg" />
-  <link rel="preload" as="image" href="Image6.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
   <style>
-    /* ================================
-       Global Variables
-    ================================= */
-    :root {
-      --black: #1a1a1a;
-      --white: #ffffff;
-      --cream: #f9f6f0;
+    :root{
+      --bg: #0b0b0f;
+      --card: rgba(255,255,255,0.08);
+      --card2: rgba(255,255,255,0.12);
+      --text: rgba(255,255,255,0.92);
+      --muted: rgba(255,255,255,0.72);
       --gold: #d4af37;
-      --spacing: clamp(80px, 10vw, 120px);
+      --shadow: 0 12px 40px rgba(0,0,0,0.35);
+      --radius: 22px;
     }
 
-    /* ================================
-       Reset & Base
-    ================================= */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      background-color: var(--white);
-      color: var(--black);
+    *{ box-sizing:border-box; margin:0; padding:0; }
+    body{
       font-family: 'Montserrat', sans-serif;
-      line-height: 1.8;
-      overflow-x: hidden;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x:hidden;
     }
 
-    h1, h2, h3 {
-      font-family: 'Cormorant Garamond', serif;
-      font-weight: 400;
-      letter-spacing: 1px;
-    }
+    a{ color:inherit; text-decoration:none; }
+    img{ max-width:100%; display:block; }
 
-    img {
-      max-width: 100%;
-      display: block;
-    }
-
-    section {
-      padding: var(--spacing) 20px;
+    /* Background hero image */
+    .hero{
+      min-height: 100svh;
       position: relative;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding: 22px;
     }
 
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    /* ================================
-       Section Titles
-    ================================= */
-    .section-title {
-      text-align: center;
-      font-size: clamp(2rem, 4vw, 3.5rem);
-      margin-bottom: 3rem;
-      position: relative;
-    }
-
-    .section-title::after {
-      content: '';
-      display: block;
-      width: 60px;
-      height: 2px;
-      background: var(--gold);
-      margin: 20px auto 0;
-    }
-
-    /* ================================
-       Hero / Carousel
-    ================================= */
-    .hero {
-      height: 100vh;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .carousel {
-      height: 100%;
-      width: 100%;
-      position: relative;
-    }
-
-    .carousel-slide {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      opacity: 0;
-      transition: opacity 1s ease-in-out;
-      background-position: center;
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(212,175,55,0.18), transparent 55%),
+        radial-gradient(circle at 80% 70%, rgba(255,255,255,0.10), transparent 50%),
+        linear-gradient(to bottom, rgba(0,0,0,0.25), rgba(0,0,0,0.78)),
+        url('hero.jpg');
       background-size: cover;
-      background-repeat: no-repeat;
+      background-position: center;
+      filter: saturate(1.05);
+      z-index:0;
     }
 
-    .carousel-slide.active {
-      opacity: 1;
+    .hero::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: rgba(0,0,0,0.15);
+      z-index:0;
     }
 
-    .carousel-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.3);
-      z-index: 1;
+    .wrap{
+      position:relative;
+      z-index:1;
+      width:min(980px, 100%);
+      display:grid;
+      gap: 18px;
     }
 
-    .hero-content {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 2;
-      width: 90%;
-      max-width: 800px;
-      padding: 2rem;
-      text-align: center;
-      color: var(--white);
+    .top-badge{
+      display:flex;
+      justify-content:center;
     }
 
-    .hero-title {
-      font-size: clamp(3rem, 8vw, 6rem);
-      margin-bottom: 1rem;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeInUp 1.5s ease forwards 0.5s;
-    }
-
-    .hero-date {
-      font-size: clamp(1rem, 2vw, 1.5rem);
-      letter-spacing: 4px;
+    .badge{
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: rgba(0,0,0,0.35);
+      border: 1px solid rgba(255,255,255,0.14);
+      backdrop-filter: blur(10px);
+      font-size: 0.85rem;
+      letter-spacing: 1px;
       text-transform: uppercase;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeInUp 1.5s ease forwards 1s;
+      color: var(--muted);
     }
 
-    /* Carousel Controls */
-    .carousel-nav {
-      position: absolute;
-      bottom: 40px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 12px;
-      z-index: 2;
+    .card{
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,0.14);
+      box-shadow: var(--shadow);
+      border-radius: var(--radius);
+      overflow:hidden;
+      backdrop-filter: blur(14px);
     }
 
-    .carousel-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.5);
-      cursor: pointer;
-      transition: all 0.3s ease;
+    .main{
+      padding: 26px 22px;
+      text-align:center;
     }
 
-    .carousel-dot.active {
-      background: var(--white);
-      transform: scale(1.2);
+    h1{
+      font-family:'Cormorant Garamond', serif;
+      font-weight: 500;
+      letter-spacing: 1px;
+      font-size: clamp(2.6rem, 8vw, 4.8rem);
+      line-height: 1.05;
+      margin-bottom: 8px;
     }
 
-    .carousel-arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      z-index: 2;
-      background: rgba(255, 255, 255, 0.1);
-      border: none;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      backdrop-filter: blur(5px);
+    .subtitle{
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      color: var(--muted);
+      margin-bottom: 20px;
+      letter-spacing: 0.4px;
     }
 
-    .carousel-arrow:hover {
-      background: rgba(255, 255, 255, 0.2);
+    .today{
+      margin: 0 auto 18px;
+      width: fit-content;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: rgba(212,175,55,0.14);
+      border: 1px solid rgba(212,175,55,0.30);
+      color: rgba(255,255,255,0.95);
+      font-weight: 600;
+      font-size: 0.95rem;
     }
 
-    .carousel-arrow.prev { left: 20px; }
-    .carousel-arrow.next { right: 20px; }
-
-    .carousel-arrow::before {
-      content: '';
-      display: block;
-      width: 10px;
-      height: 10px;
-      border-top: 2px solid white;
-      border-right: 2px solid white;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-    }
-
-    .carousel-arrow.prev::before {
-      transform: translate(-25%, -50%) rotate(-135deg);
-    }
-
-    .carousel-arrow.next::before {
-      transform: translate(-75%, -50%) rotate(45deg);
-    }
-
-    /* ================================
-       Love Story
-    ================================= */
-    .love-story {
-      background-color: var(--cream);
-    }
-
-    .story-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 60px;
-      align-items: center;
-    }
-
-    .story-image {
-      overflow: hidden;
-      border-radius: 2px;
-    }
-
-    .story-image img {
-      width: 100%;
-      filter: grayscale(100%);
-      transition: transform 0.8s ease;
-    }
-
-    .story-image:hover img {
-      transform: scale(1.05);
-    }
-
-    .story-text {
-      font-size: 1.1rem;
-      line-height: 1.8;
-    }
-
-    /* ================================
-       Ceremony
-    ================================= */
-    .ceremony {
-      background: var(--white);
-      text-align: center;
-    }
-
-    .ceremony-details {
-      max-width: 800px;
+    .desc{
+      max-width: 720px;
       margin: 0 auto;
-      padding: 40px;
-      border: 1px solid rgba(0,0,0,0.1);
-      border-radius: 2px;
+      font-size: 1.02rem;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.85);
     }
 
-    .ceremony-details p + p {
-  margin-top: 0.5rem;
-}
-
-/* ================================
-   Schedule Timeline
-   ================================= */
-.timeline {
-  max-width: 800px;
-  margin: 0 auto;
-  position: relative;
-}
-
-.timeline::before {
-  content: '';
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 1px;
-  height: 100%;
-  background: rgba(0,0,0,0.1);
-}
-
-.timeline-item {
-  margin: 60px 0;
-  position: relative;
-  width: 50%;
-  padding: 0 40px;
-}
-
-.timeline-item:nth-child(odd) { left: 0; }
-.timeline-item:nth-child(even) { left: 50%; }
-
-.timeline-content {
-  background: var(--white);
-  padding: 30px;
-  border-radius: 2px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-  text-align: center;
-}
-
-.timeline-content h3 {
-  margin: 0 0 10px 0;
-  font-size: 1.8rem;
-  color: var(--primary);
-}
-
-.timeline-content p {
-  margin: 5px 0;
-  font-size: 1.2rem;
-  font-weight: 500;
-}
-
-.timeline-content p em {
-  font-style: italic;
-  font-size: 0.95rem;
-  color: #555;
-  display: block;
-  margin-top: 8px;
-}
-
-    /* ================================
-       RSVP
-    ================================= */
-    .rsvp {
-      background: var(--cream);
-      text-align: center;
+    .actions{
+      display:grid;
+      gap: 12px;
+      margin-top: 22px;
     }
 
-    .rsvp-button {
-      display: inline-block;
-      padding: 18px 45px;
-      background: var(--black);
-      color: var(--white);
-      text-decoration: none;
-      text-transform: uppercase;
-      letter-spacing: 2px;
+    .btn{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap: 10px;
+      padding: 16px 18px;
+      border-radius: 16px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      transition: transform .18s ease, background .18s ease;
+      user-select:none;
+      text-align:center;
+    }
+
+    .btn:active{ transform: scale(0.99); }
+
+    .btn-primary{
+      background: linear-gradient(135deg, rgba(212,175,55,0.95), rgba(255,255,255,0.18));
+      color: #0b0b0f;
+      border: 1px solid rgba(255,255,255,0.22);
+    }
+
+    .btn-primary:hover{
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary{
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.14);
+      color: rgba(255,255,255,0.92);
+    }
+
+    .note{
+      margin-top: 14px;
+      font-size: 0.92rem;
+      color: rgba(255,255,255,0.70);
+    }
+
+    .footer{
+      text-align:center;
+      padding: 16px 10px;
+      color: rgba(255,255,255,0.65);
       font-size: 0.9rem;
-      border-radius: 2px;
-      transition: all 0.3s ease;
-      margin-top: 40px;
     }
 
-    .rsvp-button:hover {
-      background: var(--gold);
-      transform: translateY(-2px);
+    .heart{
+      color: var(--gold);
+      font-weight: 800;
     }
 
-    /* ================================
-       Animations
-    ================================= */
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    /* small info cards */
+    .info-grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
     }
 
-    .fade-in {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
+    .mini{
+      padding: 16px 16px;
+      display:flex;
+      gap: 12px;
+      align-items:flex-start;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 18px;
+      text-align:left;
     }
 
-    .fade-in.visible {
-      opacity: 1;
-      transform: translateY(0);
+    .icon{
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: rgba(212,175,55,0.16);
+      border: 1px solid rgba(212,175,55,0.28);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex: 0 0 40px;
+      font-size: 18px;
     }
 
-    /* ================================
-       Responsive
-    ================================= */
-    @media (max-width: 768px) {
-      .hero-content { width: 95%; padding: 1.5rem; }
-      .hero-title { font-size: clamp(2.5rem, 6vw, 4rem); }
-      .hero-date { letter-spacing: 2px; }
-
-      .carousel-overlay { background: rgba(0, 0, 0, 0.4); }
-      .carousel-arrow { width: 40px; height: 40px; }
-      .carousel-arrow.prev { left: 10px; }
-      .carousel-arrow.next { right: 10px; }
-      .carousel-slide { background-position: center 25%; }
-
-      .story-grid { grid-template-columns: 1fr; gap: 40px; }
-
-      .timeline::before { left: 20px; }
-      .timeline-item { width: 100%; padding-left: 60px; }
-      .timeline-item:nth-child(even) { left: 0; }
+    .mini h3{
+      font-family:'Cormorant Garamond', serif;
+      font-weight: 500;
+      font-size: 1.3rem;
+      margin-bottom: 2px;
     }
 
-    @media (max-width: 480px) {
-      .carousel-arrow { width: 35px; height: 35px; }
-      .carousel-arrow.prev { left: 5px; }
-      .carousel-arrow.next { right: 5px; }
-      .carousel-nav { bottom: 20px; }
-      .carousel-dot { width: 8px; height: 8px; }
+    .mini p{
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.72);
+      line-height: 1.6;
+    }
+
+    @media (min-width: 860px){
+      .wrap{ gap: 20px; }
+      .main{ padding: 34px 34px; }
+      .actions{
+        grid-template-columns: 1fr 1fr;
+      }
+      .info-grid{
+        grid-template-columns: 1fr 1fr;
+      }
     }
   </style>
 </head>
+
 <body>
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="carousel">
-      <div class="carousel-slide active" style="background-image: url('Image2.jpg')"></div>
-      <div class="carousel-slide" style="background-image: url('Image4.jpg')"></div>
-      <div class="carousel-slide" style="background-image: url('Image6.jpg')"></div>
-     <div class="carousel-slide" style="background-image: url('Image1.jpg')"></div>
-      <div class="carousel-overlay"></div>
-    </div>
+  <main class="hero">
+    <div class="wrap">
 
-    <div class="hero-content">
-      <h1 class="hero-title">Ama & Thisura</h1>
-      <p class="hero-date">January 30, 2026</p>
-    </div>
+      <div class="top-badge">
+        <div class="badge">Ama & Thisura • Wedding Day</div>
+      </div>
 
-    <button class="carousel-arrow prev" aria-label="Previous slide"></button>
-    <button class="carousel-arrow next" aria-label="Next slide"></button>
-    <div class="carousel-nav"></div>
-  </section>
+      <section class="card main">
+        <h1>Ama <span class="heart">&</span> Thisura</h1>
 
-  <!-- Love Story Section -->
-  <section class="love-story">
-    <div class="container">
-      <h2 class="section-title">Our Story</h2>
-      <div class="story-grid">
-        <div class="story-image fade-in">
-          <img src="Image3.jpg" alt="Ama and Thisura smiling together" loading="lazy" />
+        <div class="today">🎉 Today is our wedding day!</div>
+
+        <p class="subtitle">January 30, 2026</p>
+
+        <p class="desc">
+          Thank you for being part of our special day.
+          We’ve uploaded our wedding <strong>photos</strong> and <strong>videos</strong> to Google Drive.
+          You can <strong>watch</strong> and <strong>download</strong> them anytime using the button below.
+        </p>
+
+        <div class="actions">
+          <a class="btn btn-primary" target="_blank" rel="noopener"
+             href="https://drive.google.com/drive/folders/1Y9DCmhMisWoRxUbsmua1ZJIE5yxbio_R?usp=sharing">
+            📸 Open Wedding Photos & Videos
+          </a>
+
+          <button class="btn btn-secondary" id="copyBtn">
+            🔗 Copy Drive Link
+          </button>
         </div>
-        <div class="story-text fade-in">
-          <p>In the heart of Galle, where the sea meets the shore, two lives were quietly weaving toward one another. Introduced through a common friend, their first conversations were simple and unassuming, yet they carried the spark of something meaningful. What began as a friendship soon became a cherished part of their everyday lives.</p>
-          <br>
-          <p>Over the years, laughter, trust, and countless shared moments deepened their bond. Slowly but surely, friendship blossomed into love, a love rooted in understanding, respect, and joy. Today, that journey stands as a testament to the beauty of finding love in the most unexpected beginnings.</p>
+
+        <div class="note">
+          Tip: On mobile, open the folder → select photo/video → tap download.
         </div>
+      </section>
+
+      <section class="card" style="padding:16px;">
+        <div class="info-grid">
+          <div class="mini">
+            <div class="icon">🎬</div>
+            <div>
+              <h3>Wedding Videos</h3>
+              <p>Highlights, ceremony moments, and special clips uploaded in the same folder.</p>
+            </div>
+          </div>
+
+          <div class="mini">
+            <div class="icon">🖼️</div>
+            <div>
+              <h3>Wedding Photos</h3>
+              <p>View full-quality images and download your favorites.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="footer">
+        With love, <strong>Ama & Thisura</strong> <span class="heart">♥</span>
       </div>
     </div>
-  </section>
-
-  <!-- Ceremony Section -->
-  <section class="ceremony">
-    <div class="container">
-      <h2 class="section-title">The Ceremony</h2>
-      <div class="ceremony-details fade-in">
-      <h3>Join Us In Celebration</h3>
-      <p><strong>January 30, 2026</strong></p>
-      <p>4:50 P.M – Poruwa Ceremony</p>
-      <p>7:15 P.M – Reception</p>
-      <p>The Pearl Ballroom</p>
-      <p>700 Matara Road, Pelana, Weligama</p>
-      <p>Weligama Bay Marriott Resort & Spa</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Schedule Section -->
-<section class="schedule">
-  <div class="container">
-    <h2 class="section-title">Wedding Day</h2>
-    <div class="timeline">
-      <!-- Poruwa Ceremony -->
-      <div class="timeline-item fade-in">
-        <div class="timeline-content">
-          <h3>4:50 P.M</h3>
-          <p>Poruwa Ceremony</p>
-          <p><em>Rooftop, Weligama Bay Marriott</em></p>
-        </div>
-      </div>
-
-      <!-- Musical Tea Session -->
-      <div class="timeline-item fade-in">
-        <div class="timeline-content">
-          <h3>6:00 P.M</h3>
-          <p>Musical Tea Session</p>
-          <p><em>Rooftop, Weligama Bay Marriott</em></p>
-        </div>
-      </div>
-
-      <!-- Reception Begins -->
-      <div class="timeline-item fade-in">
-        <div class="timeline-content">
-          <h3>7:15 P.M</h3>
-          <p>Reception</p>
-          <p><em>The Pearl Ballroom</em></p>
-        </div>
-      </div>
-
-      <!-- Cocktail & Bar Open -->
-      <div class="timeline-item fade-in">
-        <div class="timeline-content">
-          <h3>8:20 P.M</h3>
-          <p>Cocktail & Bar Open</p>
-          <p><em>The Pearl Ballroom</em></p>
-        </div>
-      </div>
-
-      <!-- Dinner Starts -->
-      <div class="timeline-item fade-in">
-        <div class="timeline-content">
-          <h3>8:40 P.M</h3>
-          <p>Dinner Service</p>
-          <p><em>The Pearl Ballroom</em></p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-  <!-- RSVP Section -->
-    <section class="rsvp">
-        <div class="container">
-              <h2 class="section-title">Join Our Celebration</h2>
-                    <p>We would be honored to have you share in our special day</p>
-                          <a href="https://docs.google.com/forms/d/e/1FAIpQLSc7dqPLPCPHOGkWkNtGWnoZlNgsDplYJWbuDYIPVtEGn5Nrog/viewform?usp=header" class="rsvp-button">RSVP</a>
-                              </div>
-                                </section>
+  </main>
 
   <script>
-    // ================================
-    // Fade-in animations with Intersection Observer
-    // ================================
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, { threshold: 0.1 });
+    const DRIVE_LINK = "https://drive.google.com/drive/folders/1Y9DCmhMisWoRxUbsmua1ZJIE5yxbio_R?usp=sharing";
 
-    document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
-
-    // ================================
-    // Carousel Logic
-    // ================================
-    class Carousel {
-      constructor() {
-        this.slides = document.querySelectorAll('.carousel-slide');
-        this.totalSlides = this.slides.length;
-        this.currentSlide = 0;
-        this.autoPlayInterval = null;
-        this.touchStartX = 0;
-        this.touchEndX = 0;
-
-        this.initializeNav();
-        this.initializeControls();
-        this.initializeTouchEvents();
-        this.startAutoPlay();
+    document.getElementById("copyBtn").addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(DRIVE_LINK);
+        const btn = document.getElementById("copyBtn");
+        const old = btn.textContent;
+        btn.textContent = "✅ Link Copied!";
+        setTimeout(() => btn.textContent = old, 1600);
+      } catch (e) {
+        alert("Copy failed. Here is the link:\n\n" + DRIVE_LINK);
       }
-
-      initializeNav() {
-        const nav = document.querySelector('.carousel-nav');
-        for (let i = 0; i < this.totalSlides; i++) {
-          const dot = document.createElement('div');
-          dot.classList.add('carousel-dot');
-          if (i === 0) dot.classList.add('active');
-          dot.addEventListener('click', () => this.goToSlide(i));
-          nav.appendChild(dot);
-        }
-        this.dots = nav.querySelectorAll('.carousel-dot');
-      }
-
-      initializeControls() {
-        document.querySelector('.carousel-arrow.prev')
-          .addEventListener('click', () => this.prevSlide());
-        document.querySelector('.carousel-arrow.next')
-          .addEventListener('click', () => this.nextSlide());
-      }
-
-      initializeTouchEvents() {
-        const carousel = document.querySelector('.carousel');
-        carousel.addEventListener('touchstart', (e) => {
-          this.touchStartX = e.touches[0].clientX;
-        }, false);
-
-        carousel.addEventListener('touchend', (e) => {
-          this.touchEndX = e.changedTouches[0].clientX;
-          this.handleSwipe();
-        }, false);
-      }
-
-      handleSwipe() {
-        const swipeThreshold = 50;
-        const difference = this.touchStartX - this.touchEndX;
-        if (Math.abs(difference) > swipeThreshold) {
-          difference > 0 ? this.nextSlide() : this.prevSlide();
-        }
-      }
-
-      updateSlides() {
-        this.slides.forEach(slide => slide.classList.remove('active'));
-        this.dots.forEach(dot => dot.classList.remove('active'));
-        this.slides[this.currentSlide].classList.add('active');
-        this.dots[this.currentSlide].classList.add('active');
-      }
-
-      nextSlide() {
-        this.currentSlide = (this.currentSlide + 1) % this.totalSlides;
-        this.updateSlides();
-        this.resetAutoPlay();
-      }
-
-      prevSlide() {
-        this.currentSlide = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
-        this.updateSlides();
-        this.resetAutoPlay();
-      }
-
-      goToSlide(index) {
-        this.currentSlide = index;
-        this.updateSlides();
-        this.resetAutoPlay();
-      }
-
-      startAutoPlay() {
-        this.autoPlayInterval = setInterval(() => this.nextSlide(), 5000);
-      }
-
-      resetAutoPlay() {
-        clearInterval(this.autoPlayInterval);
-        this.startAutoPlay();
-      }
-    }
-
-    document.addEventListener('DOMContentLoaded', () => new Carousel());
+    });
   </script>
 </body>
 </html>
